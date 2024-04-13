@@ -1436,15 +1436,13 @@ Object.defineProperty(exports, "decodeXMLStrict", { enumerable: true, get: funct
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DesuME = exports.DesuMEInfo = void 0;
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const types_1 = require("@paperback/types");
 const DesuMEParser_1 = require("./DesuMEParser");
 require("../scopes");
 const DOMAIN = 'https://desu.me';
 const API = `${DOMAIN}/manga/api`;
 exports.DesuMEInfo = {
-    version: '2.0.1',
+    version: '2.0.2',
     name: 'Desu',
     icon: 'icon.png',
     author: 'xOnlyFadi',
@@ -1464,7 +1462,7 @@ exports.DesuMEInfo = {
 class DesuME {
     constructor() {
         this.requestManager = App.createRequestManager({
-            requestsPerSecond: 2,
+            requestsPerSecond: 4,
             requestTimeout: 15000,
             interceptor: {
                 interceptRequest: async (request) => {
@@ -1710,7 +1708,7 @@ const parseMangaDetails = (data, mangaId) => {
     const author = details.authors ?? '';
     const arrayTags = [];
     if (details?.genres) {
-        for (const category of details?.genres) {
+        for (const category of details.genres) {
             const id = category.text.replace(/ /g, '+').replace(/%20/g, '+') ?? '';
             const label = category?.russian ?? '';
             if (!id || !label)
@@ -1759,7 +1757,7 @@ exports.parseMangaDetails = parseMangaDetails;
 const parseChapters = (data) => {
     const chapters = [];
     let sortingIndex = 0;
-    for (const chapter of data?.response?.chapters?.list) {
+    for (const chapter of data.response.chapters.list) {
         const id = chapter?.id ?? '';
         const chapNum = chapter?.ch ? Number(chapter.ch) : 0;
         const chapVol = chapter?.ch ? Number(chapter.vol) : 0;
@@ -2042,7 +2040,7 @@ const parseTags = () => {
     return [
         App.createTagSection({ id: 'genres', label: 'Жанр', tags: Genres.map(x => App.createTag(x)) }),
         App.createTagSection({ id: 'types', label: 'Тип', tags: Types.map(x => App.createTag(x)) }),
-        App.createTagSection({ id: 'order', label: 'Сортировка', tags: Order.map(x => App.createTag(x)) }),
+        App.createTagSection({ id: 'order', label: 'Сортировка', tags: Order.map(x => App.createTag(x)) })
     ];
 };
 exports.parseTags = parseTags;
