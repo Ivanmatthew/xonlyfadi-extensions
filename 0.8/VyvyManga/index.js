@@ -1572,9 +1572,9 @@ exports.VyvyManga = exports.VyvyMangaInfo = void 0;
 const types_1 = require("@paperback/types");
 const VyvyMangaParser_1 = require("./VyvyMangaParser");
 const VyvyMangaSettings_1 = require("./VyvyMangaSettings");
-const VYVY_DOMAIN = 'https://vyvymanga.net';
+const VYVY_DOMAIN = 'https://vymanga.net';
 exports.VyvyMangaInfo = {
-    version: '2.1.0',
+    version: '2.1.1',
     name: 'VyvyManga',
     icon: 'icon.png',
     author: 'xOnlyFadi',
